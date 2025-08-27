@@ -1,9 +1,9 @@
-FROM alpine:3.19 AS build
+FROM alpine:3.22 AS build
 RUN apk add --no-cache build-base cmake ninja openssl-dev
 WORKDIR /src
 COPY . .
 RUN cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DACX_WITH_OPENSSL=ON         && cmake --build build --target acx         && strip build/acx
-FROM alpine:3.19
+FROM alpine:3.22
 RUN adduser -D -u 10001 acx
 USER acx
 WORKDIR /home/acx
