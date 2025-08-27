@@ -1,0 +1,16 @@
+.TH acx 1 "2025-08-19" "AgendaCyberneticX" "User Commands"
+.SH NAME
+acx \- AgendaCyberneticX Enterprise CLI
+.SH SYNOPSIS
+.B acx
+[\-\-engine jsonl|sqlite] COMMAND [OPTIONS]
+.SH DESCRIPTION
+acx manages contacts with secure, auditable, reproducible operations.
+The default storage engine is JSONL; SQLite engine is available if compiled.
+.SH COMMANDS
+add, edit, delete, list, search, import, export, backup, verify-backup, sbom, metrics
+.SH OPTIONS
+\-\-engine select storage engine; env ACX_ENGINE also supported.
+.SH ENVIRONMENT
+ACX_LOG_LEVEL, ACX_LOG_FORMAT, ACX_ENGINE, ACX_OTEL, ACX_HMAC_KEY, ACX_ZSTD,
+ACX_IMPORT_WORKERS, ACX_IMPORT_MAX, ACX_RECORD_MAX_SIZE, ACX_FAST_SEARCH.

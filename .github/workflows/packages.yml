@@ -1,0 +1,28 @@
+name: packages
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*.*.*"]
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Package
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target package
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: acx-packages
+          path: build/*.{zip,tgz,deb,rpm}
+          if-no-files-found: ignore

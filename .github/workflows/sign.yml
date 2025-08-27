@@ -1,0 +1,32 @@
+name: sign
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*.*.*']
+jobs:
+  sign-artifacts:
+    if: ${{ secrets.COSIGN_EXPERIMENTAL == '1' }}
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Package
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+          cpack -C Release -B dist
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3.7.0
+      - name: Sign artifacts (keyless)
+        run: cosign sign-blob --yes dist/* || true

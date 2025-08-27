@@ -1,0 +1,22 @@
+name-template: 'ACX v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: 'Features'
+    labels: ['feat', 'feature']
+  - title: 'Fixes'
+    labels: ['fix', 'bugfix', 'bug']
+  - title: 'Docs'
+    labels: ['docs']
+  - title: 'Build/CI'
+    labels: ['build','ci']
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+version-resolver:
+  major:
+    labels: ['major']
+  minor:
+    labels: ['minor','feat']
+  patch:
+    labels: ['patch','fix']
+template: |
+  ## Changes
+  $CHANGES

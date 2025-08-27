@@ -1,0 +1,10 @@
+# Template for winget submission
+PackageIdentifier: YourOrg.ACX
+PackageVersion: 1.0.0
+InstallerType: zip
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/your-org/acx/releases/download/v1.0.0/acx-1.0.0-windows.zip
+    InstallerSha256: REPLACE_WITH_REAL_CHECKSUM
+Commands:
+  - acx

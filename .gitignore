@@ -1,0 +1,12 @@
+build/
+build-*/
+dist/
+.site/
+*.swp
+*.log
+*.cache
+.DS_Store
+.env
+.idea/
+.vscode/
+.eg-build/

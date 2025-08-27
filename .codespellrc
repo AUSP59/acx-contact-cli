@@ -1,0 +1,3 @@
+[codespell]
+skip = .git,build,dist,.site
+ignore-words-list = crate,inout,fo,subtile

@@ -1,0 +1,6 @@
+PROJECT_NAME           = "ACX"
+EXTRACT_ALL            = YES
+INPUT                  = src include
+RECURSIVE              = YES
+GENERATE_HTML          = YES
+OUTPUT_DIRECTORY       = build/docs
