@@ -285,4 +285,4 @@ Code of Conduct adapted from Contributor Covenant v2.1 (CC BY 4.0).
 
 Thank you to all contributors who help keep ACX world-class.
 
-Project home: https://github.com/AUSP59/acx-contact-cli.git.
+Project home: https://github.com/AUSP59/acx-contact-cli.git
