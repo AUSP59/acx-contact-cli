@@ -1,0 +1,27 @@
+name: cli-dataops-smoke
+on: [push, pull_request]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+      - name: Smoke data-ops
+        run: |
+          ./build/acx validate examples/contacts.jsonl --json
+          ./build/acx report   examples/contacts.jsonl --json
+          ./build/acx hash     examples/contacts.jsonl --json
+          ./build/acx dedupe   examples/contacts.jsonl out.jsonl
+          ./build/acx backup   examples/contacts.jsonl backups
+          ./build/acx redact   examples/contacts.jsonl redacted.jsonl

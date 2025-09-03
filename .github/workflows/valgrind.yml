@@ -1,0 +1,29 @@
+name: valgrind
+on: [push, pull_request]
+jobs:
+  memcheck:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install valgrind
+        run: sudo apt-get update && sudo apt-get install -y valgrind
+      - name: Build (Debug)
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build --config Debug
+      - name: Run tests under valgrind (non-blocking)
+        run: |
+          set -e
+          for t in $(ctest --test-dir build -N | awk '/Test +#/ {print $NF}'); do
+            echo "==> $t"
+            valgrind --quiet --leak-check=full ./build/$t || true
+          done

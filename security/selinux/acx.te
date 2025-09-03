@@ -1,0 +1,5 @@
+policy_module(acx, 1.0)
+type acx_t;
+type acx_exec_t;
+init_daemon_domain(acx_t, acx_exec_t)
+allow acx_t tmp_t:file { read write create };

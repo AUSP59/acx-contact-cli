@@ -1,0 +1,15 @@
+pkgname=acx
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="ACX Enterprise Contact CLI"
+arch=('x86_64')
+license=('Apache')
+source=()
+build() {
+  cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build --config Release
+}
+package() {
+  install -Dm755 build/acx "$pkgdir/usr/bin/acx"
+  install -Dm644 man/acx.1 "$pkgdir/usr/share/man/man1/acx.1"
+}

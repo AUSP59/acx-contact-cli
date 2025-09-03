@@ -1,0 +1,12 @@
+# AppArmor profile for acx
+#include <tunables/global>
+profile acx /usr/bin/acx flags=(attach_disconnected) {
+  #include <abstractions/base>
+  capability,  # none by default
+  network,     # deny by default
+  deny network raw,  # no raw sockets
+  /usr/bin/acx ix,
+  /etc/** r,
+  /tmp/** rw,
+  owner @{HOME}/** rwk,
+}

@@ -1,0 +1,27 @@
+name: slsa-provenance
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  generate-provenance:
+    permissions:
+      id-token: write
+      contents: write
+      actions: read
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: slsa-framework/slsa-github-generator/.github/actions/generator@v2.0.0
+        with:
+          compile-generator: true
+          upload-assets: true

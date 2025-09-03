@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "status",
+    "results"
+  ],
+  "properties": {
+    "status": {
+      "const": "ok"
+    },
+    "results": {
+      "type": "array"
+    }
+  }
+}

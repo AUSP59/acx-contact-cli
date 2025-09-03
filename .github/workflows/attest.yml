@@ -1,0 +1,32 @@
+name: attest
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*.*.*"]
+jobs:
+  cosign-attest:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ secrets.COSIGN_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build binary
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target acx
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3.6.0
+      - name: Attest
+        env:
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          cosign sign-blob --key env://COSIGN_KEY build/acx > build/acx.sig
+          ls -l build/acx.sig

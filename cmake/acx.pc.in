@@ -1,0 +1,10 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: acx
+Description: ACX Enterprise Contact CLI library
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lacxlib
+Cflags: -I${includedir}

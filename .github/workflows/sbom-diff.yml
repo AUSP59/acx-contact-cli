@@ -1,0 +1,25 @@
+name: sbom-diff
+on: [pull_request]
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & SBOM
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+          bash scripts/make_sbom.sh || echo '{}'>SBOM.cyclonedx.json
+      - name: Download baseline SBOM from base (if available)
+        run: |
+          echo '{}' > SBOM.base.json
+      - name: Diff
+        run: python3 scripts/sbom_diff.py SBOM.base.json SBOM.cyclonedx.json

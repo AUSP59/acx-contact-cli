@@ -1,0 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
+#define ACX_BUILD_GIT     "@ACX_GIT_DESC@"
+#define ACX_BUILD_COMPILER "@ACX_COMPILER_ID@ @ACX_COMPILER_VER@"
+#define ACX_BUILD_SYSTEM   "@ACX_SYSTEM_NAME@"

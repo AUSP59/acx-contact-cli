@@ -1,0 +1,8 @@
+{
+  "data_file": "acx-data.jsonl",
+  "backup_dir": "backups",
+  "audit_log": "acx-audit.log",
+  "lock_dir": ".acx-locks",
+  "region": "MX",
+  "output": "human"
+}

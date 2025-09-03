@@ -1,0 +1,9 @@
+FROM alpine:3.19 AS build
+RUN apk add --no-cache build-base cmake ninja musl-dev
+WORKDIR /src
+COPY . .
+RUN cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DACX_HARDEN=ON &&     cmake --build build --config Release
+FROM scratch
+COPY --from=build /src/build/acx /acx
+ENTRYPOINT ["/acx"]
+CMD ["help"]

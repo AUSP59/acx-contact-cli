@@ -1,0 +1,3 @@
+Contact: mailto:security@acx.example
+Preferred-Languages: en
+Policy: https://example.com/security

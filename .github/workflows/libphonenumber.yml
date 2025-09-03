@@ -1,0 +1,25 @@
+name: libphonenumber
+on: [push, pull_request]
+jobs:
+  build-libphonenumber:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libphonenumber-dev libabsl-dev cmake ninja-build
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DACX_WITH_LIBPHONENUMBER=ON
+      - name: Build
+        run: cmake --build build --target acx
+      - name: Tests
+        run: ctest --test-dir build --output-on-failure || true

@@ -1,0 +1,19 @@
+name: werror
+on: [push, pull_request]
+jobs:
+  build-werror:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure (Werror)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DACX_WERROR=ON
+      - name: Build
+        run: cmake --build build --target acx
