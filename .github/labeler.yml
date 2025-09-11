@@ -1,0 +1,9 @@
+enhancement:
+  - changed-files:
+      - any-glob-to-any-file: ['src/**', 'include/**']
+docs:
+  - changed-files:
+      - any-glob-to-any-file: ['docs/**', 'README.md']
+ci:
+  - changed-files:
+      - any-glob-to-any-file: ['.github/workflows/**']

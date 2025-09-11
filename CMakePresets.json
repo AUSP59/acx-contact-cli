@@ -1,0 +1,21 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {"major": 3, "minor": 16},
+  "configurePresets": [
+    {"name": "default", "displayName": "Default Release", "generator": "Ninja",
+     "binaryDir": "build", "cacheVariables": {"CMAKE_BUILD_TYPE":"Release"}},
+    {"name": "debug", "displayName": "Debug", "generator": "Ninja",
+     "binaryDir": "build-debug", "cacheVariables": {"CMAKE_BUILD_TYPE":"Debug"}},
+    {"name": "asan", "inherits": "debug", "displayName": "ASan", "cacheVariables": {"ACX_ENABLE_ASAN":"ON"}},
+    {"name": "ubsan", "inherits": "debug", "displayName": "UBSan", "cacheVariables": {"ACX_WITH_COVERAGE":"ON"}},
+    {"name": "tsan", "inherits": "debug", "displayName": "TSan", "cacheVariables": {"TSAN":"ON"}}
+  ],
+  "buildPresets": [
+    {"name": "build", "configurePreset": "default"},
+    {"name": "build-debug", "configurePreset": "debug"}
+  ],
+  "testPresets": [
+    {"name": "test", "configurePreset": "default",
+     "execution": {"noTestsAction": "error"}, "output": {"verbosity":"normal"}}
+  ]
+}

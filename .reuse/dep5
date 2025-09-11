@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: acx
+Upstream-Contact: Maintainers <maintainers@acx.example>
+Source: https://github.com/acx/acx
+
+Files: *
+Copyright: 2025 ACX Enterprise Contributors
+License: Apache-2.0

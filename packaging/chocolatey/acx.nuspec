@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>acx</id>
+    <version>1.0.0</version>
+    <title>ACX</title>
+    <authors>ACX Contributors</authors>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://example.org/acx</projectUrl>
+    <description>Audit-ready contact CLI</description>
+    <tags>acx contacts cli</tags>
+  </metadata>
+</package>

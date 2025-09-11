@@ -1,0 +1,9 @@
+.git
+.github
+build
+build-*
+dist
+site
+*.log
+*.tmp
+.DS_Store

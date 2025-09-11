@@ -1,0 +1,3 @@
+name,email,phone,country,tags,notes
+Alice Example,alice@example.com,+52-555-000-0000,MX,"vip;beta","Key account"
+Bob Beta,bob@example.com,+1-415-000-0000,US,,

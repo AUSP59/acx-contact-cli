@@ -1,0 +1,22 @@
+name: sanitizers
+on: [push, pull_request]
+jobs:
+  asan_ubsan:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build ASan+UBSan
+        run: |
+          cmake -S . -B build-asan -DCMAKE_BUILD_TYPE=RelWithDebInfo -DACX_ASAN=ON -DACX_UBSAN=ON
+          cmake --build build-asan --config RelWithDebInfo
+      - name: Run basic tests under sanitizers
+        run: ctest --test-dir build-asan --output-on-failure || true

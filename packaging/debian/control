@@ -1,0 +1,12 @@
+Source: acx
+Section: utils
+Priority: optional
+Maintainer: ACX Contributors <maintainers@example.com>
+Standards-Version: 4.6.2
+Build-Depends: debhelper-compat (= 13), cmake, g++, ninja-build
+
+Package: acx
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ACX Enterprise Contact CLI
+ Auditable, portable contact CLI with elite OSS governance & security.

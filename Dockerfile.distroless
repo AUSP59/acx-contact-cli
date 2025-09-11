@@ -1,0 +1,17 @@
+# Build stage
+FROM debian:stable-slim as build
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential cmake ninja-build ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /src
+COPY . .
+RUN cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release
+
+# Distroless runtime
+FROM gcr.io/distroless/cc-debian12:nonroot
+WORKDIR /app
+COPY --from=build /src/build/acx /app/acx
+USER nonroot
+ENTRYPOINT ["/app/acx"]
+CMD ["help"]
+
+
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD ["/app/acx","--version"] || exit 1

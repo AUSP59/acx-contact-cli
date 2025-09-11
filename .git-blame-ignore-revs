@@ -1,0 +1,3 @@
+# Add commit hashes here for formatting-only changes to improve blame signal.
+# Example:
+# 0123456789abcdef0123456789abcdef01234567 Reformat with clang-format

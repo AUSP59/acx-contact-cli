@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AgendaCyberneticX Enterprise"
+version: "1.0.0"
+date-released: "2025-08-19"
+authors:
+  - family-names: "Contributors"
+    given-names: "ACX"
+repository-code: "https://example.com/AgendaCyberneticX-Enterprise"
+license: "Apache-2.0"

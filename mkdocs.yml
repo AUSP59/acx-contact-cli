@@ -1,0 +1,34 @@
+site_name: ACX Enterprise Contact CLI
+repo_url: https://github.com/your-org/acx
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - content.code.copy
+nav:
+  - Overview: docs/overview.md
+  - Performance: docs/performance.md
+  - Security: docs/security.md
+  - Audit & Assurance: docs/AUDIT_LOGGING.md
+  - Whitepaper: docs/whitepaper.md
+  - Roadmap: docs/roadmap.md
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+
+
+- Integration:
+  - CMake: docs/INTEGRATION_CMAKE.md
+  - pkg-config: docs/INTEGRATION_PKGCONFIG.md
+- Operations:
+  - Release policy: docs/RELEASE_POLICY.md
+  - Release checklist: docs/RELEASE_CHECKLIST.md
+  - DR Plan: docs/DR_PLAN.md
+  - SLOs: docs/OPERATIONS_SLO.md
+- Security:
+  - Security FAQ: docs/SECURITY_FAQ.md
+  - Threat model: THREAT_MODEL.md
+  - Incident response: INCIDENT_RESPONSE.md
+- Migration: docs/MIGRATION_GUIDE.md

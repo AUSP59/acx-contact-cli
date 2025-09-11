@@ -1,0 +1,27 @@
+name: fuzz
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+jobs:
+  fuzz-csv:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang
+        run: sudo apt-get update && sudo apt-get install -y clang
+      - name: Build fuzzer
+        run: |
+          CC=clang CXX=clang++ cmake -B build -DACX_WITH_FUZZ=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build --target csv_fuzz -j 2
+      - name: Run fuzzer (60s)
+        run: |
+          timeout 60s ./build/csv_fuzz || test $? -eq 124

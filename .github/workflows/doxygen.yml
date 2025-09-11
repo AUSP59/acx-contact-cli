@@ -1,0 +1,24 @@
+name: doxygen
+on: [push, pull_request]
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      - name: Build API docs
+        run: doxygen Doxyfile
+      - name: Upload API docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: dox-api
+          path: docs/api

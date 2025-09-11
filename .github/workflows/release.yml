@@ -1,0 +1,33 @@
+name: release
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release -j 2
+      - name: Package
+        run: |
+          mkdir dist
+          cp build/acx dist/acx-linux-amd64 || true
+          echo "$(sha256sum dist/*)" > dist/SHA256SUMS.txt || true
+          ./build/acx sbom --format spdx --out dist/SBOM.spdx.json
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: acx-release
+          path: dist/*

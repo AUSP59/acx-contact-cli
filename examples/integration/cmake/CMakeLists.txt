@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(acx_consumer CXX)
+find_package(acx REQUIRED)
+add_executable(consumer main.cpp)
+target_link_libraries(consumer PRIVATE acx::acxlib)

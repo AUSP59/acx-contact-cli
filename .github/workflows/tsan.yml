@@ -1,0 +1,22 @@
+name: tsan
+on: [push, pull_request]
+jobs:
+  tsan:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure TSan
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -D CMAKE_CXX_FLAGS='-fsanitize=thread' -D CMAKE_EXE_LINKER_FLAGS='-fsanitize=thread'
+      - name: Build
+        run: cmake --build build --target acx test_roundtrip
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure

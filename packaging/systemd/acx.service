@@ -1,0 +1,18 @@
+[Unit]
+Description=ACX Enterprise Contact CLI (oneshot)
+After=network.target
+
+[Service]
+Type=oneshot
+User=acx
+Group=acx
+ExecStart=/usr/local/bin/acx help
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+PrivateTmp=yes
+PrivateDevices=yes
+
+[Install]
+WantedBy=multi-user.target
