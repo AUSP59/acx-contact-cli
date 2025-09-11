@@ -1,0 +1,36 @@
+name: slsa-provenance
+on:
+  push:
+    tags:
+      - "v*.*.*"
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-and-provenance:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build release artifact
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+          cpack -C Release -B dist
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: acx-dist
+          path: dist/*
+      - name: Generate provenance (SLSA v1)
+        uses: slsa-framework/slsa-github-generator/.github/actions/generator@v2.0.0
+        with:
+          artifacts: "dist/*"
+          upload-assets: true

@@ -1,0 +1,26 @@
+    name: clang-tidy
+    on:
+      pull_request:
+      push:
+        branches: [ main, master ]
+    jobs:
+      tidy:
+        runs-on: ubuntu-latest
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        timeout-minutes: 30
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        timeout-minutes: 30
+        continue-on-error: false
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+        timeout-minutes: 30
+        continue-on-error: false
+        steps:
+          - uses: actions/checkout@v4
+          - uses: actions/setup-python@v5
+          - name: Install clang-tidy
+            run: sudo apt-get update && sudo apt-get install -y clang-tidy ninja-build
+          - name: Configure
+            run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          - name: Run clang-tidy
+            run: clang-tidy -p build $(git ls-files '*.cpp' '*.hpp' | tr '
+' ' ')

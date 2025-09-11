@@ -1,0 +1,17 @@
+name: acx
+base: core22
+version: '1.0.0'
+summary: ACX Enterprise Contact CLI
+description: |
+  Auditable, portable contact CLI with elite OSS governance & security.
+grade: devel
+confinement: strict
+apps:
+  acx:
+    command: bin/acx
+parts:
+  acx:
+    plugin: dump
+    source: ..
+    organize:
+      build/acx: bin/acx

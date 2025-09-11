@@ -1,0 +1,30 @@
+name: pgo
+on: [workflow_dispatch]
+jobs:
+  pgo:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (PGO generate)
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DACX_PGO_PHASE=generate
+          cmake --build build --config Release
+      - name: Train profile
+        run: ./build/acx list --limit 1000 || true
+      - name: Build (PGO use)
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DACX_PGO_PHASE=use
+          cmake --build build --config Release
+      - name: Archive binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: acx-pgo
+          path: build/acx

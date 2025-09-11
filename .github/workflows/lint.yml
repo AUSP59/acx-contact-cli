@@ -1,0 +1,26 @@
+name: lint
+on: [push, pull_request]
+jobs:
+  format-tidy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang tools
+        run: sudo apt-get update && sudo apt-get install -y clang-format clang-tidy
+      - name: Format check
+        run: |
+          diff -u <(cat $(git ls-files '*.cpp' '*.hpp')) <(clang-format $(git ls-files '*.cpp' '*.hpp')) || (echo "Run clang-format"; exit 1)
+      - name: Tidy (non-blocking)
+        run: |
+          clang-tidy --version || true
+          SRCS="$(git ls-files '*.cpp' '*.hpp')"
+          clang-tidy $SRCS -- -Iinclude -Isrc -std=c++20 || true

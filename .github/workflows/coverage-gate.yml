@@ -1,0 +1,31 @@
+name: coverage-gate
+on: [push, pull_request]
+jobs:
+  gcovr:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: true
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    timeout-minutes: 30
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gcovr
+        run: sudo apt-get update && sudo apt-get install -y gcovr
+      - name: Configure (coverage)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DACX_WITH_COVERAGE=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+      - name: Build
+        run: cmake --build build --target acx test_validation test_hmac test_roundtrip || cmake --build build
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure || true
+      - name: Report & gate 85%
+        run: gcovr -r . --xml -o coverage.xml --fail-under-line=85
+      - name: Upload to Codecov (if public)
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.xml
+          fail_ci_if_error: false

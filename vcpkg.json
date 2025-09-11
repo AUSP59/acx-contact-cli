@@ -1,0 +1,20 @@
+{
+  "name": "acx",
+  "version-string": "1.0.0",
+  "description": "ACX Enterprise Contact CLI",
+  "dependencies": [],
+  "features": {
+    "sqlite": {
+      "description": "Enable SQLite3 engine",
+      "dependencies": [
+        "sqlite3"
+      ]
+    },
+    "zstd": {
+      "description": "Enable Zstandard compression",
+      "dependencies": [
+        "zstd"
+      ]
+    }
+  }
+}

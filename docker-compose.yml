@@ -1,0 +1,12 @@
+services:
+  acx:
+    build: .
+    image: acx:latest
+    command: ["help"]
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:security/seccomp/acx.json
+    user: "1000:1000"
+    cap_drop: ["ALL"]
+    tmpfs: ["/tmp:rw,nosuid,nodev,noexec,mode=1777"]
